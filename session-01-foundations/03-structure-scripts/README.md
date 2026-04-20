@@ -80,7 +80,8 @@ def load_template(template_path: str) -> Template:
 ```python
 def load_template(template_path: str) -> Template:
     """Read the Jinja template file and return a compiled Template object."""
-    return Template(template_path.read_text(encoding="utf-8"))
+    with open(template_path, encoding="utf-8") as f:
+        return Template(f.read())
 ```
 
 ---
@@ -182,6 +183,11 @@ Then navigate into the lesson subfolder before running the script:
 ```bash
 cd 03-structure-scripts
 ```
+
+> **Before you run the commands below**, copy `branch-sites.csv` from Session 02 into this folder. You can do this with:
+> ```bash
+> cp ../02-howto-templates/branch-sites.csv .
+> ```
 
 Let's run the script with the `--help` argument to know how to use it:
 ```bash

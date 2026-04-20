@@ -132,7 +132,7 @@ The configurations of this template can be split into two types:
 
 For multi-site rollout, the source of truth is a CSV file where each row represents one branch router. The renderer reads one row, maps columns to Jinja variables, and generates one device-ready config per row.
 
-> Of course, we want to ditch using speadsheets forever, but for now we will use this one as an example. Later on in the course we will see some other device inventory options.
+> Of course, we want to ditch using spreadsheets forever, but for now we will use this one as an example. Later on in the course we will see some other device inventory options.
 
 The file named `branch-sites.csv` has the following records:
 
@@ -207,6 +207,7 @@ python config_renderer.py
 Afterwards, you will get your files and the following output:
 
 ```bash
+✅ Rendered config saved to RTR-BOS-01.cfg
 ✅ Rendered config saved to RTR-DEN-01.cfg
 ✅ Rendered config saved to RTR-MIA-01.cfg
 ✅ Rendered config saved to RTR-SEA-01.cfg

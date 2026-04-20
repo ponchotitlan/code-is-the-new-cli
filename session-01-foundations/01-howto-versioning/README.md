@@ -37,15 +37,17 @@ This time, they will `treat this file as code, and collaborate together on GitHu
 
 ## 📁 Repository Setup
 
-Bob logins to github.com with his account, creates a new repository, and clones it on his computer.
+Bob logins to github.com with his account, creates a new repository on his own account, and clones it on his computer.
 He then navigates to the folder where the golden template will be located.
 
 ```bash
-git clone git@github.com:ponchotitlan/code-is-the-new-cli.git
-cd session-01-foundations/01-howto-versioning/network-templates
+git clone git@github.com:<your-username>/<your-repo-name>.git
+cd <your-repo-name>/session-01-foundations/01-howto-versioning/network-templates
 ```
 
-> 2 ways to clone a reposotory: **HTTP** and **SSH**. The latter requires you to [setup your SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
+> **Note:** Replace `<your-username>` with your GitHub username and `<your-repo-name>` with the repository name you created. You will need your own repository to follow along; do not clone the course repo directly.
+
+> 2 ways to clone a repository: **HTTP** and **SSH**. The latter requires you to [setup your SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
 
 ---
 
@@ -160,7 +162,7 @@ Alice owns the **data plane**: IP addressing, interfaces, and OSPF peering back 
 git checkout -b feature/wan-routing
 ```
 
-She updates `branch-site-template.ios` with the following sections:
+She updates `branch-site-template.ios` with the following sections.
 
 > While doing so, she also updates the `ip name-server` line: the IP Plan doc for branch sites specifies `10.10.50.53` as the local DNS resolver for the branch LAN.
 
@@ -210,10 +212,10 @@ The PR diff shows exactly which lines change on the device.
 ```
   main     o─────────────────────────────────────────── (skeleton committed)
              \
-              \  git checkout -b feature/wan-and-routing
+              \  git checkout -b feature/wan-routing
                \
   feature/      o── commit: "feat: WAN interface, LAN, OSPF" ──► (PR open 🔍)
-  wan-and-routing
+  wan-routing
 ```
 ---
 
