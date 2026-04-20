@@ -30,7 +30,7 @@ the branch routers during the change window.
 
 This time, they will `treat this file as code, and collaborate together on GitHub for building the ultimate version`.
 
-**Golden rule No.1:**
+**🏅 Golden rule No.1:**
 > `main` is sacred: it is what goes to production.
 
 ---

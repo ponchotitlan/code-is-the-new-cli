@@ -1,4 +1,4 @@
-# 🌐 Session 02: Jinja for Device Config Templates
+# 🥷 Session 02: Jinja for Device Config Templates
 Topics: 🧩 Jinja placeholders · 🐍 Template rendering · 🛡️ Virtual Environments
 
 ---
@@ -17,13 +17,17 @@ Topics: 🧩 Jinja placeholders · 🐍 Template rendering · 🛡️ Virtual En
 
 ## 🗺️ What is going on
 
+<div align="center"><img src="../../images/citnc_banner_02.png" width="80%"/></div></br>
+
+---
+
 Did you notice that the master template that Alice and Bob created had placeholders?
 
 Every site needs the same baseline controls, but each site has unique values like hostname, router ID, and shared secrets. Manually editing each config keeps introducing drift and mistakes.
 
 They solve this by turning a static master config into a Jinja template, then feeding site-specific variables into a small Python renderer. The result is repeatable, auditable, and much faster than hand-editing. Say goodbye to manual copy/paste!
 
-**Golden rule No.2:**
+**🏅 Golden rule No.2:**
 > Render from data, not from copy-paste.
 
 ---
