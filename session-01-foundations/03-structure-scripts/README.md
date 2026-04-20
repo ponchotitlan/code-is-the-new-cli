@@ -50,10 +50,10 @@ The gap between the two is smaller than it looks:
 Take the flat script from Session 02 and give each logical step its own function:
 
 ```python
-def load_template(template_path: Path) -> Template:
+def load_template(template_path: str) -> Template:
     ...
 
-def render_configs(template: Template, inventory_path: Path, output_dir: Path) -> None:
+def render_configs(template: Template, inventory_path: str, output_dir: str) -> None:
     ...
 
 def main() -> None:
@@ -69,21 +69,19 @@ Each function has one job. This makes the code easier to read, test, and reuse.
 **Type hints** tell Python (and your editor) what kind of value a function expects and returns:
 
 ```python
-def load_template(template_path: Path) -> Template:
+def load_template(template_path: str) -> Template:
 ```
 
-- `template_path: Path`: the argument must be a `Path` object
+- `template_path: str`: the argument must be a string
 - `-> Template`: the function returns a `Template` object
 
 **Docstrings** are plain-English descriptions placed right inside the function:
 
 ```python
-def load_template(template_path: Path) -> Template:
+def load_template(template_path: str) -> Template:
     """Read the Jinja template file and return a compiled Template object."""
     return Template(template_path.read_text(encoding="utf-8"))
 ```
-
-> Any engineer can now run `help(load_template)` in a Python shell and see exactly what the function does, without reading the implementation.
 
 ---
 
@@ -253,5 +251,3 @@ The tool now reads a CSV inventory and renders configs. CSV is convenient for sm
 Session 04 tackles that directly: you will learn how to parse structured data formats, understand why JSON and XML look the way they do, and adapt the renderer to accept API-style input instead of a hand-crafted spreadsheet.
 
 That is the bridge to **Session 04: Structured Data for Network Engineers - JSON and XML Parsing**.
-
-
