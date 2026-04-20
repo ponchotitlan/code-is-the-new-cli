@@ -158,15 +158,21 @@ CSV design rules:
 
 Use a Python virtual environment so project dependencies stay isolated from your system Python. This is ideal because everyone in the team runs the same package versions with fewer conflicts.
 
-We will create now a virtual environment on a folder titled `.venv` and install the python library `jinja` using `pip`, which is a python package manager that is very simple to use. 
+The shared virtual environment and `requirements.txt` for all lessons in this session live in the `session-01-foundations/` folder. Create it once and reuse it across all sub-lessons.
 
-> The library is mentioned in the `requirements.txt` file. This is a good practice for python libraries in projects.
+> The libraries for every lesson are listed in `session-01-foundations/requirements.txt`.
 
 ```bash
-cd session-01-foundations/02-howto-templates
+cd session-01-foundations
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+With the virtual environment active, navigate into the lesson subfolder before running the script:
+
+```bash
+cd 02-howto-templates
 ```
 
 Having deployed the virtual environment and installed the library, we will run this Python script:

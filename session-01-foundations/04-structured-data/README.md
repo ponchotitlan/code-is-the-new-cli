@@ -7,8 +7,8 @@ Topics: 📄 JSON · 🌐 XML · 🔍 Parsing · 🔧 Adapting tools
 
 | # | Skill |
 |:---:|:---|
-| 1 | 📄 Read and understand JSON payloads returned by network REST APIs |
-| 2 | 🌐 Navigate XML documents returned by NETCONF and legacy device APIs |
+| 1 | 📄 Read and understand JSON exports produced by modern IPAM and CMDB tools |
+| 2 | 🌐 Navigate XML exports from legacy network management tools and reports |
 | 3 | 🔍 Extract specific values from nested JSON and XML structures with Python |
 | 4 | 🔄 Adapt `config_renderer.py` to accept JSON or XML as inventory input |
 | 5 | ⚖️ Choose the right format for the job based on the data source |
@@ -21,9 +21,11 @@ Topics: 📄 JSON · 🌐 XML · 🔍 Parsing · 🔧 Adapting tools
 
 ---
 
-Alice points the renderer at the team's new provisioning API - and it breaks immediately. The API speaks JSON, not CSV. Bob pulls a NETCONF backup from a legacy router and gets an XML document nobody is sure how to read. Poncho finds a vendor Python SDK that returns a mix of both formats depending on the endpoint.
+The renderer works perfectly, as long as the inventory is a CSV. Then the team migrates to NetBox as their IPAM tool. Ops exports the branch site inventory directly from the NetBox UI and drops a JSON file in the shared drive. Bob finds an older XML export from the legacy IPAM tool that was replaced two years ago and never migrated; it still has the most complete record of the WAN addressing scheme. Poncho downloads a NetBox report for a third site, also XML.
 
-They have a working tool. Now they need to understand the data it will process in the real world. Before writing another line of code, they learn to *read* the formats that network APIs actually use.
+The data is all there. The template is ready. The tool breaks on every single file.
+
+The problem isn't the renderer: it's that the team assumed the world speaks CSV. Before touching the code, they need to learn how to *read* the formats their tools actually produce.
 
 **🏅 Golden rule No.4:**
 > Understand your data before you write the code that reads it.
@@ -90,7 +92,7 @@ for device in root.findall("device"):
 
 ## 🔄 Adapting the Renderer
 
-The renderer from Session 03 expects a CSV file. Adapting it to handle JSON or XML means replacing only the `load_inventory()` step - the template rendering logic stays exactly the same.
+The renderer from Session 03 expects a CSV file. Adapting it to handle JSON or XML means replacing only the `load_inventory()` step: the template rendering logic stays exactly the same.
 
 ```python
 def load_inventory_json(inventory_path: str) -> list[dict]:
@@ -110,11 +112,43 @@ def load_inventory_xml(inventory_path: str) -> list[dict]:
 
 A `--format` CLI argument selects which loader to use at runtime:
 
+---
+
+## 🏃‍♂️ Running the Renderer
+
+Activate the shared virtual environment from the `session-01-foundations/` folder (create it if you haven't yet: see Session 02 for instructions):
+
 ```bash
-python config_renderer.py --template branch-site-template-ios.j2 \
-                           --inventory inventory.json \
-                           --format json \
-                           --output-dir ./rendered
+cd session-01-foundations
+source .venv/bin/activate
+```
+
+Then navigate into the lesson subfolder before running the script:
+
+```bash
+cd 04-structured-data
+```
+
+Run the renderer passing the inventory format with the `--format` flag:
+
+```bash
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.json --format json --output-dir ./rendered
+```
+
+Or with the XML inventory:
+
+```bash
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.xml --format xml --output-dir ./rendered
+```
+
+You will get the exact same results from both different data structures:
+
+```bash
+✅ Rendered config saved to ./rendered/RTR-BOS-01.cfg
+✅ Rendered config saved to ./rendered/RTR-NYC-01.cfg
+✅ Rendered config saved to ./rendered/RTR-SFO-01.cfg
+✅ Rendered config saved to ./rendered/RTR-CHI-01.cfg
+✅ Rendered config saved to ./rendered/RTR-DEN-01.cfg
 ```
 
 ---
@@ -123,7 +157,7 @@ python config_renderer.py --template branch-site-template-ios.j2 \
 
 | | JSON | XML |
 |---|---|---|
-| Typical source | REST APIs, Ansible facts, Nautobot | NETCONF, legacy vendor CLIs, NX-API XML mode |
+| Typical source | NetBox/Nautobot exports, Ansible facts, Infrahub | SolarWinds reports, legacy IPAM exports, Cisco Prime |
 | Python module | `json` (built-in) | `xml.etree.ElementTree` (built-in) |
 | Readability | High | Moderate |
 | Supports namespaces | No | Yes |
@@ -145,3 +179,4 @@ python config_renderer.py --template branch-site-template-ios.j2 \
 ---
 
 ## 🚀 What's Next
+TBD

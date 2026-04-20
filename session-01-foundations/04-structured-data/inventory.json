@@ -1,0 +1,32 @@
+[
+  {
+    "BRANCH_HOSTNAME": "RTR-BOS-01",
+    "BRANCH_IP": "10.0.1.1",
+    "BRANCH_SUBNET": "255.255.255.0",
+    "WAN_IP": "203.0.113.1"
+  },
+  {
+    "BRANCH_HOSTNAME": "RTR-NYC-01",
+    "BRANCH_IP": "10.0.2.1",
+    "BRANCH_SUBNET": "255.255.255.0",
+    "WAN_IP": "203.0.113.5"
+  },
+  {
+    "BRANCH_HOSTNAME": "RTR-SFO-01",
+    "BRANCH_IP": "10.0.3.1",
+    "BRANCH_SUBNET": "255.255.255.0",
+    "WAN_IP": "203.0.113.9"
+  },
+  {
+    "BRANCH_HOSTNAME": "RTR-CHI-01",
+    "BRANCH_IP": "10.0.4.1",
+    "BRANCH_SUBNET": "255.255.255.0",
+    "WAN_IP": "203.0.113.13"
+  },
+  {
+    "BRANCH_HOSTNAME": "RTR-DEN-01",
+    "BRANCH_IP": "10.0.5.1",
+    "BRANCH_SUBNET": "255.255.255.0",
+    "WAN_IP": "203.0.113.17"
+  }
+]

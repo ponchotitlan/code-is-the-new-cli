@@ -1,4 +1,4 @@
 .github
 *.venv/
 *.cfg
-session-01-foundations/03-structure-scripts/rendered
+*rendered/

@@ -90,9 +90,7 @@ def load_template(template_path: str) -> Template:
 `argparse` is a built-in Python library that turns constants into runtime arguments. Instead of editing the script to change paths, the engineer passes them at the command line:
 
 ```bash
-python config_renderer.py --template branch-site-template-ios.j2 \
-                           --inventory branch-sites.csv \
-                           --output-dir ./rendered
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory branch-sites.csv --output-dir ./rendered
 ```
 
 The `--help` flag is generated automatically:
@@ -172,13 +170,17 @@ if __name__ == "__main__":
     main()
 ```
 
-Before we run it, we will create a new virtual environment the same way as we did before. But this time, we are adding the new library `argparse` for the inline arguments and help documentation:
+Before we run it, activate the shared virtual environment from the `session-01-foundations/` folder (create it if you haven't yet — see Session 02 for instructions):
 
 ```bash
-cd session-01-foundations/03-structure-scripts
-python3 -m venv .venv
+cd session-01-foundations
 source .venv/bin/activate
-pip install -r requirements.txt
+```
+
+Then navigate into the lesson subfolder before running the script:
+
+```bash
+cd 03-structure-scripts
 ```
 
 Let's run the script with the `--help` argument to know how to use it:
@@ -205,7 +207,7 @@ options:
 Now, let's run it the same way as before, but now with explicit arguments:
 
 ```bash
-python config_renderer.py --template branch-site-template-ios.j2 --inventory branch-sites.csv --output-dir ./rendered
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory branch-sites.csv --output-dir ./rendered
 ```
 
 You will have the folder `rendered/` created, along with the `.cfg` device configuration files:
@@ -246,8 +248,8 @@ Now, your script is officially a tool ready to be used by other engineers.
 
 ## 🚀 What's Next
 
-The tool now reads a CSV inventory and renders configs. CSV is convenient for small, flat datasets, but network APIs rarely speak CSV: they speak **JSON** and **XML**. The same script that works perfectly today will break the moment you point it at a REST API response or a NETCONF payload.
+The tool now reads a CSV inventory and renders configs. CSV is convenient for small, flat datasets, but the tools engineers actually use (NetBox, SolarWinds, legacy IPAM systems) export data as **JSON** or **XML**. The moment someone hands you a file from one of those tools instead of a hand-crafted spreadsheet, the renderer breaks.
 
-Session 04 tackles that directly: you will learn how to parse structured data formats, understand why JSON and XML look the way they do, and adapt the renderer to accept API-style input instead of a hand-crafted spreadsheet.
+Session 04 tackles that directly: you will learn to read JSON and XML exports, understand their structure, and adapt the renderer to accept them as inventory input without touching the template or the rendering logic.
 
 That is the bridge to **Session 04: Structured Data for Network Engineers - JSON and XML Parsing**.
