@@ -61,7 +61,7 @@ This is the skeleton agreed upon by both engineers: File `branch-site-template.i
 ! Repo: network-templates | Branch: main
 ! ============================================================
 
-hostname {{BRANCH_HOSTNAME}}
+hostname <put here the branch hostname>
 !
 ip domain-name corp.example.com
 ip name-server 8.8.8.8
@@ -187,7 +187,7 @@ interface GigabitEthernet0/2
 !
 ! --- OSPF ---
 router ospf 1
- router-id {{BRANCH_ROUTER_ID}}
+ router-id <put here the router's ID>
  passive-interface GigabitEthernet0/2
  network 203.0.113.0 0.0.0.3 area 0
  network 10.10.50.0 0.0.0.255 area 10
@@ -267,7 +267,7 @@ aaa authorization exec default group tacacs+ local
 !
 tacacs server CORP-TACACS
  address ipv4 10.0.0.10
- key {{TACACS_SECRET}}
+ key <put here the TACAC's secret>
 !
 ! --- SSH Hardening ---
 ip domain-name corp.example.com
@@ -285,7 +285,7 @@ ntp server 10.0.0.6
 !
 ! --- SNMP (read-only, v3 auth) ---
 snmp-server group NETOPS v3 auth
-snmp-server user MONITORING NETOPS v3 auth sha {{SNMP_AUTH_KEY}}
+snmp-server user MONITORING NETOPS v3 auth sha <put here the SNMP auth key>
 snmp-server host 10.0.0.20 version 3 auth MONITORING
 !
 ! --- Banners ---
@@ -417,13 +417,12 @@ No more `router1_config_FINAL_v3_REAL.txt` in a shared drive.
 | PR diff view | Delta report: what exactly changes on the device? |
 | Merge conflict | Two engineers editing the same section of a runbook |
 | `git tag` | Timestamped config backup, but queryable and navigable |
-| `{{PLACEHOLDERS}}` | Seed of the next session: templating with Jinja2 |
 
 ---
 
 ## 🚀 What's Next
 
-The template uses `{{BRANCH_HOSTNAME}}`, `{{TACACS_SECRET}}`, and `{{SNMP_AUTH_KEY}}`.
+The template uses a couple of placeholders in some of the configurations (<put here X value>).
 The natural next question is: **how do we fill these in automatically for each site?**
 
 That is the bridge to **Session 02: Templating with Jinja2 and variable files**.
