@@ -1,0 +1,52 @@
+devices:
+  R1:
+    os: iosxe
+    type: router
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.171
+
+  R2:
+    os: iosxe
+    type: router
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.172
+
+  SW1:
+    os: iosxe
+    type: switch
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.173
+
+  SW2:
+    os: iosxe
+    type: switch
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.174
