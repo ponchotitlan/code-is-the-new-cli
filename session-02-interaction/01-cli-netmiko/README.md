@@ -505,7 +505,7 @@ def detect_loopback_drift(device: "pyats.devices.Device") -> bool:
     loopback_config = interface_table["Loopback100"]
     
     # Check if the IP address matches
-    if loopback_config.get("ip_address") != "10.100.100.102":
+    if loopback_config.get("ip_address") != "10.100.100.103":
         return True
     
     return False
@@ -528,7 +528,7 @@ The `remediate_loopback` function applies the following command under the consta
 ```python
 LOOPBACK100_REMEDIATION_COMMANDS = [
     "interface Loopback100",
-    "ip address 10.100.100.102 255.255.255.255",
+    "ip address 10.100.100.103 255.255.255.255",
     "no shutdown",
 ]
 ```
@@ -581,11 +581,11 @@ Parsing commands: 100%|███████████████████
 }
 
 ------
-⚠️ Drift detected: Loopback100 is missing or doesn't have IP 10.100.100.101. Applying remediation...
+⚠️ Drift detected: Loopback100 is missing or doesn't have IP 10.100.100.103. Applying remediation...
 
 ✅ Remediation result:
 interface Loopback100
-ip address 10.100.100.102 255.255.255.255
+ip address 10.100.100.103 255.255.255.255
 no shutdown
 ```
 
