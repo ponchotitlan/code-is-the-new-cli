@@ -35,7 +35,7 @@ For this first block of Session 02, we automate the same workflow engineers alre
 
 This is where pyATS shines: connection handling, parsing, and validation-friendly data models in one toolkit.
 
-**🏅 Golden rule No.2:**
+**🏅 Golden rule No.1:**
 > Automate reads first, automate writes second, and always prove the result.
 
 ---
@@ -195,9 +195,6 @@ for name, device in testbed.devices.items():
         print(f"\n🔑 Command: {cmd}\n\n")
         print(f"🔖 Output:\n{output}\n")
         print(f"------")
-    
-    break # Remove this break to collect from all devices in the testbed
-          # For the sake of this demo, we will only collect from the first device to keep the output manageable.
 ```
 
 First of all, because we enabled the log mode in the `connect` function (`log_stdout=True`) - we can see everything that happens behind the curtains:

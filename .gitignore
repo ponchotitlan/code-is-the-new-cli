@@ -3,3 +3,5 @@
 *.cfg
 *rendered/
 *__pycache__/
+session-02-interaction/02-change-validation-snapshots/snapshots/*.json
+session-02-interaction/02-change-validation-snapshots/snapshots/*.log
