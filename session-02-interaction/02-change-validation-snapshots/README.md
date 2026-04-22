@@ -232,27 +232,6 @@ Load both snapshots and compare them side by side:
   # Genie's Diff function compares and contrasts the contents of the before and after snapshots
   genie_diff = Diff(before_data, after_data)
   genie_diff.findDiff()
-
-  # to_json_safe converts complex objects into JSON structures
-  # This makes it easier for saving in a file
-  serialized_diffs = to_json_safe(genie_diff.diffs)
-
-  # If the result is False, both snapshots are identical (nothing changed)
-  if not serialized_diffs:
-      print("✅ No differences found between the provided snapshots.")
-      return
-
-  # But if not, we can use the attribute .diffs to report what changed
-  # We save this into a report file as evidence!
-  if output_file:
-      output_path = Path(output_file)
-      output_path.parent.mkdir(parents=True, exist_ok=True)
-      with open(output_path, "w") as file_handle:
-          json.dump(serialized_diffs, file_handle, indent=2)
-      print(f"📄 Diff report saved to: {output_path}")
-  else:
-      print("🔎 Differences found:")
-      print(json.dumps(serialized_diffs, indent=2))
 ```
 
 The diff report shows that the interface `Loopback400` is brand new:
@@ -320,4 +299,6 @@ Store it alongside your change ticket or configuration management system.
 
 ## 🚀 What's Next
 
-TBD
+In the final lesson of this session, we move from CLI-based snapshots to live network state through APIs. You will learn API essentials, how to structure RESTCONF calls in Python, and how to validate interface state directly from IOS XE in a repeatable workflow.
+
+That is the bridge to **Session 02: API Essentials with IOS XE RESTCONF**.
