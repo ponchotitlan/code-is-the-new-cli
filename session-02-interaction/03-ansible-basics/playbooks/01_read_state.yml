@@ -1,0 +1,17 @@
+- name: Read operational state from IOS XR
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+
+  tasks:
+    - name: Run show commands
+      cisco.iosxr.iosxr_command:
+        commands:
+          - show version
+          - show ipv4 interface brief
+      register: iosxr_show
+
+    - name: Print command results
+      ansible.builtin.debug:
+        var: iosxr_show.stdout_lines

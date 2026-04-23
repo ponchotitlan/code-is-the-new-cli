@@ -1,0 +1,6 @@
+all:
+  children:
+    iosxr:
+      hosts:
+        xrd-1:
+          ansible_host: sandbox-iosxr-1.cisco.com

@@ -2,3 +2,4 @@ pyats[full]
 pyyaml
 tqdm
 argparse
+ansible

@@ -180,4 +180,6 @@ You will get the exact same results from both different data structures:
 
 ## 🚀 What's Next
 
-TBD
+Now that you can read and normalize CSV, JSON, and XML inputs, you are ready to move from data preparation into live network interaction. In **Session 02**, you will connect to real sandbox devices, collect operational state, validate expected behavior, and apply small, controlled remediations using both pyATS and Ansible workflows.
+
+That is the bridge to **Session 02: Interaction and Validation Workflows**.

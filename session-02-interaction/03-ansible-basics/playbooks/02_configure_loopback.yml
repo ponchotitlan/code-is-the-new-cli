@@ -1,0 +1,45 @@
+- name: Ensure a demo loopback exists on IOS XR
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+
+  vars:
+    demo_loopback_name: Loopback123
+    demo_loopback_description: CITNC_ANSIBLE_DEMO
+    demo_loopback_ipv4: 10.123.123.1/32
+
+  tasks:
+    - name: Ensure loopback interface attributes are present
+      cisco.iosxr.iosxr_interfaces:
+        config:
+          - name: "{{ demo_loopback_name }}"
+            description: "{{ demo_loopback_description }}"
+            enabled: true
+        state: merged
+      register: interface_result
+
+    - name: Ensure loopback IPv4 address is present
+      cisco.iosxr.iosxr_l3_interfaces:
+        config:
+          - name: "{{ demo_loopback_name }}"
+            ipv4:
+              - address: "{{ demo_loopback_ipv4 }}"
+        state: merged
+      register: l3_result
+
+    - name: Show whether the device changed
+      ansible.builtin.debug:
+        msg:
+          - "interface_changed={{ interface_result.changed }}"
+          - "l3_changed={{ l3_result.changed }}"
+
+    - name: Verify resulting interface configuration
+      cisco.iosxr.iosxr_command:
+        commands:
+          - "show running-config interface {{ demo_loopback_name }}"
+      register: verification
+
+    - name: Print verification output
+      ansible.builtin.debug:
+        var: verification.stdout_lines

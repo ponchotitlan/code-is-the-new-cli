@@ -1,0 +1,29 @@
+- name: Remove the demo loopback from IOS XR
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+
+  vars:
+    demo_loopback_name: Loopback123
+
+  tasks:
+    - name: Remove loopback IPv4 address
+      cisco.iosxr.iosxr_l3_interfaces:
+        config:
+          - name: "{{ demo_loopback_name }}"
+        state: deleted
+      register: cleanup_l3_result
+
+    - name: Remove loopback interface attributes
+      cisco.iosxr.iosxr_interfaces:
+        config:
+          - name: "{{ demo_loopback_name }}"
+        state: deleted
+      register: cleanup_if_result
+
+    - name: Show cleanup result
+      ansible.builtin.debug:
+        msg:
+          - "l3_changed={{ cleanup_l3_result.changed }}"
+          - "interface_changed={{ cleanup_if_result.changed }}"

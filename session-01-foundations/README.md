@@ -28,9 +28,3 @@ Topics: 🗂️ Version control · 🧩 Templates · 🐍 Python tooling · 📄
 | 02 | [02-howto-templates](./02-howto-templates) | Jinja templating, placeholder design, CSV inventory data, and Python-based config rendering |
 | 03 | [03-structure-scripts](./03-structure-scripts) | Turning a flat renderer script into a maintainable tool with functions, type hints, docstrings, and `argparse` |
 | 04 | [04-structured-data](./04-structured-data) | Reading JSON and XML inventories, parsing them in Python, and adapting the renderer to different data sources |
-
----
-
-## 🚀 What's Next
-
-TBD
