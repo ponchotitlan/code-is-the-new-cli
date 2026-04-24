@@ -1,5 +1,5 @@
 # Interaction and Validation Workflows
-Topics: 🧪 pyATS automation · 📸 Snapshot validation · 📦 Ansible IOS XR · 🔁 Idempotent operations
+Topics: 🧪 pyATS automation · 📸 Snapshot validation · 📦 Ansible IOS XR · 🧱 OpenTofu IOS XR · 🔁 Idempotent operations
 
 ---
 
@@ -28,3 +28,4 @@ Topics: 🧪 pyATS automation · 📸 Snapshot validation · 📦 Ansible IOS XR
 | 01 | [01-pyats-readwrite](./01-pyats-readwrite) | pyATS inventory-driven connectivity, state collection, parsing, drift detection, and minimal remediation workflows |
 | 02 | [02-change-validation-snapshots](./02-change-validation-snapshots) | Before/after snapshots, structured diffs, and machine-readable change evidence |
 | 03 | [03-ansible-basics](./03-ansible-basics) | IOS XR inventory and playbooks, resource modules, dry-run checks, and idempotent configuration patterns |
+| 04 (extra) | [04-terraform-basics](./04-terraform-basics) | OpenTofu fundamentals with the official Cisco IOS XR provider: read, create, and delete interface workflows with state-driven planning |

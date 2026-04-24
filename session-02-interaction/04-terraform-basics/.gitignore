@@ -1,0 +1,11 @@
+# OpenTofu local state and lock files – never commit these
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+.terraform/
+
+# Credentials file – copy terraform.tfvars.example instead
+terraform.tfvars
+
+# macOS
+.DS_Store

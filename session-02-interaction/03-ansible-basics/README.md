@@ -17,7 +17,7 @@ Topics: 📦 Inventory · ▶️ Playbooks · 🔁 Idempotence
 
 ## 🗺️ What is going on
 
-<div align="center"><img src="../../images/citnc_banner_06.png" width="80%"/></div></br>
+<div align="center"><img src="../../images/citnc_banner_07.png" width="80%"/></div></br>
 
 ---
 
