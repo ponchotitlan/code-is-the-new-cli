@@ -1,3 +1,12 @@
+"""Course script metadata.
+
+Course: Code Is The New CLI - by Cisco DevNet X Nairobi Devops Community
+Author: Alfonso (Poncho) Sandoval - alfsando@cisco.com
+Session: Session 02 - Interaction
+Module: 01 - pyATS Read and Write
+Script: state_collector_parse_handle.py
+"""
+
 import json
 from tqdm import tqdm
 from pyats.topology import loader

@@ -1,4 +1,12 @@
-"""Apply Loopback400 configuration to all devices in parallel using pyATS.
+"""Course script metadata.
+
+Course: Code Is The New CLI - by Cisco DevNet X Nairobi Devops Community
+Author: Alfonso (Poncho) Sandoval - alfsando@cisco.com
+Session: Session 02 - Interaction
+Module: 02 - Change Validation Snapshots
+Script: apply_configs.py
+
+Apply Loopback400 configuration to all devices in parallel using pyATS.
 
 This script loads devices from the testbed inventory and uses pyATS pcall to
 run configuration on all devices at the same time.

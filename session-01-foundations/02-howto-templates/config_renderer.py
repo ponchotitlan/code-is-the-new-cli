@@ -1,3 +1,12 @@
+"""Course script metadata.
+
+Course: Code Is The New CLI - by Cisco DevNet X Nairobi Devops Community
+Author: Alfonso (Poncho) Sandoval - alfsando@cisco.com
+Session: Session 01 - Foundations
+Module: 02 - Howto Templates
+Script: config_renderer.py
+"""
+
 # --- Imports: bring in the tools we need ---
 import csv
 from pathlib import Path

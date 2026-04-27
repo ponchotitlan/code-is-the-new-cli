@@ -1,4 +1,12 @@
-"""Take pyATS interface snapshots and compare them with Genie Diff.
+"""Course script metadata.
+
+Course: Code Is The New CLI - by Cisco DevNet X Nairobi Devops Community
+Author: Alfonso (Poncho) Sandoval - alfsando@cisco.com
+Session: Session 02 - Interaction
+Module: 02 - Change Validation Snapshots
+Script: snapshots.py
+
+Take pyATS interface snapshots and compare them with Genie Diff.
 
 Modes:
   - pre-snapshot:  collect interface snapshots and save as *_before.json
