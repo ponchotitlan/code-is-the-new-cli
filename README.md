@@ -41,9 +41,9 @@ Yes, you can prompt an LLM to write your Ansible playbook today. That is genuine
 | Date | Session | Topics |
 |:-----|:--------|:-------|
 | **April 27** | [🔗 Foundations & Data Handling](./session-01-foundations/) | Python for network engineers, data formats (JSON, YAML, XML), parsing and templating, working with structured data |
-| **April 30** | APIs & Network Interaction | REST APIs, HTTP fundamentals, authentication, using requests, interacting with network devices via API |
-| **May 4** | Infrastructure & Automation Part 1 | Infrastructure as Code concepts, Ansible for network automation, Terraform for network infrastructure, model-driven programmability |
-| **May 7** | Infrastructure & Automation Part 2 | NETCONF, RESTCONF, gNMI protocols, streaming telemetry, observability at scale |
+| **April 30** | [🔗 Network interaction and IaC principles](./session-02-foundations/) | Usage of the pyATS library for network read/write, CLI parsing, device snapshots and Ansible 101 |
+| **May 4** | Infrastructure & Automation Part 1 | Introduction to OpenTofu, model-driven programmability concepts, NETCONF protocol |
+| **May 7** | Infrastructure & Automation Part 2 | API usage principles, RESTCONF protocol, streaming telemetry and observability |
 
 ---
 
