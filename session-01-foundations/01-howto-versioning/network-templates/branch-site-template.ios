@@ -1,0 +1,29 @@
+! ============================================================
+! Branch Site Master Template - DRAFT
+! Repo: network-templates | Branch: main
+! ============================================================
+
+hostname <put here the branch hostname>
+!
+ip domain-name corp.example.com
+ip name-server 8.8.8.8
+!
+! --- WAN Interface ---
+interface GigabitEthernet0/1
+ description WAN_UPLINK
+ ! PENDING: IP assignment from Alice (see feature/wan-routing)
+ shutdown
+!
+! --- LAN Interface ---
+interface GigabitEthernet0/2
+ description LAN_INTERNAL
+ ! PENDING: VLAN and IP scheme (see feature/wan-routing)
+ shutdown
+!
+! --- Routing ---
+! PENDING: OSPF configuration (see feature/wan-routing)
+!
+! --- Management Plane ---
+! PENDING: AAA, NTP, SNMP, SSH hardening (see feature/security-base)
+!
+end
