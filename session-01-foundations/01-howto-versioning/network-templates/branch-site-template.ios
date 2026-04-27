@@ -6,22 +6,33 @@
 hostname <put here the branch hostname>
 !
 ip domain-name corp.example.com
-ip name-server 8.8.8.8
+!
+! --- DNS ---
+ip name-server 10.10.50.53
 !
 ! --- WAN Interface ---
 interface GigabitEthernet0/1
- description WAN_UPLINK
- ! PENDING: IP assignment from Alice (see feature/wan-routing)
- shutdown
+ description WAN_UPLINK_ISP-PRIMARY
+ ip address 203.0.113.2 255.255.255.252
+ ip ospf 1 area 0
+ no shutdown
 !
 ! --- LAN Interface ---
 interface GigabitEthernet0/2
- description LAN_INTERNAL
- ! PENDING: VLAN and IP scheme (see feature/wan-routing)
- shutdown
+ description LAN_INTERNAL_USERS
+ ip address 10.10.50.1 255.255.255.0
+ ip ospf 1 area 10
+ no shutdown
 !
-! --- Routing ---
-! PENDING: OSPF configuration (see feature/wan-routing)
+! --- OSPF ---
+router ospf 1
+ router-id <put here the router's ID>
+ passive-interface GigabitEthernet0/2
+ network 203.0.113.0 0.0.0.3 area 0
+ network 10.10.50.0 0.0.0.255 area 10
+ default-information originate
+!
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
 !
 ! --- Management Plane ---
 ! PENDING: AAA, NTP, SNMP, SSH hardening (see feature/security-base)
