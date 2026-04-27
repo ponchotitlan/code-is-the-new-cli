@@ -8,6 +8,8 @@ hostname <put here the branch hostname>
 ip domain-name corp.example.com
 !
 ! --- DNS ---
+ip name-server 10.0.0.53
+!
 ip name-server 10.10.50.53
 !
 ! --- WAN Interface ---
@@ -34,7 +36,43 @@ router ospf 1
 !
 ip route 0.0.0.0 0.0.0.0 203.0.113.1
 !
-! --- Management Plane ---
-! PENDING: AAA, NTP, SNMP, SSH hardening (see feature/security-base)
+!
+! --- AAA / TACACS ---
+aaa new-model
+aaa authentication login default group tacacs+ local
+aaa authorization exec default group tacacs+ local
+!
+tacacs server CORP-TACACS
+ address ipv4 10.0.0.10
+ key <put here the TACAC's secret>
+!
+! --- SSH Hardening ---
+ip domain-name corp.example.com
+crypto key generate rsa modulus 4096
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+line vty 0 4
+ transport input ssh
+ exec-timeout 10 0
+!
+! --- NTP ---
+ntp server 10.0.0.5 prefer
+ntp server 10.0.0.6
+!
+! --- SNMP (read-only, v3 auth) ---
+snmp-server group NETOPS v3 auth
+snmp-server user MONITORING NETOPS v3 auth sha <put here the SNMP auth key>
+snmp-server host 10.0.0.20 version 3 auth MONITORING
+!
+! --- Banners ---
+banner login ^
+  AUTHORIZED ACCESS ONLY
+  All activity is monitored and logged.
+^
+!
+service password-encryption
+no ip http server
+no ip http secure-server
 !
 end
