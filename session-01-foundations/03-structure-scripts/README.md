@@ -88,7 +88,7 @@ def load_template(template_path: str) -> Template:
 
 ## ⌨️ CLI Arguments with argparse
 
-`argparse` is a built-in Python library that turns constants into runtime arguments. Instead of editing the script to change paths, the engineer passes them at the command line:
+`argparse` is a Python library that turns constants into runtime arguments. Instead of editing the script to change paths, the engineer passes them at the command line:
 
 ```bash
 python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory branch-sites.csv --output-dir ./rendered
@@ -184,11 +184,6 @@ Then navigate into the lesson subfolder before running the script:
 cd 03-structure-scripts
 ```
 
-> **Before you run the commands below**, copy `branch-sites.csv` from Session 02 into this folder. You can do this with:
-> ```bash
-> cp ../02-howto-templates/branch-sites.csv .
-> ```
-
 Let's run the script with the `--help` argument to know how to use it:
 ```bash
 python config_renderer.py --help
@@ -213,7 +208,7 @@ options:
 Now, let's run it the same way as before, but now with explicit arguments:
 
 ```bash
-python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory branch-sites.csv --output-dir ./rendered
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory ../02-howto-templates/branch-sites.csv --output-dir ./rendered
 ```
 
 You will have the folder `rendered/` created, along with the `.cfg` device configuration files:

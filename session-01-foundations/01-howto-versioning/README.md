@@ -45,8 +45,6 @@ git clone git@github.com:<your-username>/<your-repo-name>.git
 cd <your-repo-name>/session-01-foundations/01-howto-versioning/network-templates
 ```
 
-> **Note:** Replace `<your-username>` with your GitHub username and `<your-repo-name>` with the repository name you created. You will need your own repository to follow along; do not clone the course repo directly.
-
 > 2 ways to clone a repository: **HTTP** and **SSH**. The latter requires you to [setup your SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
 
 ---
@@ -349,7 +347,7 @@ ip name-server 10.10.50.53
 
 This is a classic parallel-work conflict: two engineers, one skeleton, two different sources of truth. The resolution requires a conversation.
 
-After a quick Slack message, they agree: the branch needs **both** — the local resolver for LAN traffic, and the central one as fallback:
+After a quick Slack message, they agree: the branch needs **both**: the local resolver for LAN traffic, and the central one as fallback:
 
 ```ios
 ip name-server 10.10.50.53
@@ -392,18 +390,18 @@ Bob's PR is reviewed and merged. ✅
 With both PRs merged and the template fully reviewed, tag the commit:
 
 ```bash
-git tag -a mw-2026-04-24-branch-site-A -m "Approved template for branch site A maintenance window"
+git tag -a mw-2026-04-27-branch-site-A -m "Approved template for branch site A maintenance window"
 git push origin --tags
 ```
 
 Any engineer can now run:
 
 ```bash
-git checkout mw-2026-04-24-branch-site-A
+git checkout mw-2026-04-27-branch-site-A
 ```
 
 to get the exact config that was pushed to the device: a permanent, auditable record.
-No more `router1_config_FINAL_v3_REAL.txt` in a shared drive.
+No more `router1_config_FINAL_v3_REAL.xls` in a shared drive.
 
 ---
 

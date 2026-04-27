@@ -25,6 +25,7 @@ def load_template(template_path: str) -> Template:
 def load_inventory_csv(inventory_path: str) -> list[dict]:
     """Load device inventory from a CSV file."""
     inventory = []
+    print("\n📂 Loading inventory from CSV file...\n")
     with open(inventory_path, encoding="utf-8") as f:
         for row in csv.DictReader(f):
             inventory.append(row)
@@ -33,34 +34,32 @@ def load_inventory_csv(inventory_path: str) -> list[dict]:
 
 def load_inventory_json(inventory_path: str) -> list[dict]:
     """Load device inventory from a JSON file."""
+    print("\n📂 Loading inventory from JSON file...\n")
     with open(inventory_path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_inventory_xml(inventory_path: str) -> list[dict]:
     """Load device inventory from an XML file."""
-    tree = ET.parse(inventory_path)
-    inventory = []
-    for device in tree.getroot().findall("device"):
-        device_dict = {}
-        for child in device:
-            device_dict[child.tag] = child.text
-        inventory.append(device_dict)
-    return inventory
+    print("\n📂 Loading inventory from XML file...\n")
+    tree = ET.parse(inventory_path)                             # Parse the XML file into an ElementTree
+    inventory = []                                              # Initialize empty list to store device dictionaries
+    for device in tree.getroot().findall("device"):             # Find all <device> elements in the root
+        device_dict = {}                                        # Create an empty dictionary for each device
+        for child in device:                                    # Iterate over all child elements (fields) of the device
+            device_dict[child.tag] = child.text                 # Map XML tag name to its text content
+        inventory.append(device_dict)                           # Add the device dictionary to the inventory list
+    return inventory                                            # Return the complete list of device dictionaries
 
 
 def load_inventory(inventory_path: str, format_type: str) -> list[dict]:
     """Load inventory based on file format."""
-    loaders = {
-        "csv": load_inventory_csv,
-        "json": load_inventory_json,
-        "xml": load_inventory_xml,
-    }
-    
-    if format_type not in loaders:
-        raise ValueError(f"Unsupported format: {format_type}. Supported: {', '.join(loaders.keys())}")
-    
-    return loaders[format_type](inventory_path)
+    if format_type == "csv":
+        return load_inventory_csv(inventory_path)
+    elif format_type == "json":
+        return load_inventory_json(inventory_path)
+    elif format_type == "xml":
+        return load_inventory_xml(inventory_path)
 
 
 def render_configs(template: Template, inventory: list[dict], output_dir: str) -> None:

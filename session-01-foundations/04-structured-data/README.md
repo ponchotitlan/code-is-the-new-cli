@@ -97,20 +97,36 @@ The renderer from Session 03 expects a CSV file. Adapting it to handle JSON or X
 ```python
 def load_inventory_json(inventory_path: str) -> list[dict]:
     """Load device inventory from a JSON file."""
+    print("\n📂 Loading inventory from JSON file...\n")
     with open(inventory_path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_inventory_xml(inventory_path: str) -> list[dict]:
     """Load device inventory from an XML file."""
+    print("\n📂 Loading inventory from XML file...\n")
     tree = ET.parse(inventory_path)
-    return [
-        {child.tag: child.text for child in device}
-        for device in tree.getroot().findall("device")
-    ]
+    inventory = []
+    for device in tree.getroot().findall("device"):
+        device_dict = {}
+        for child in device:
+            device_dict[child.tag] = child.text
+        inventory.append(device_dict)
+    return inventory 
 ```
 
 A `--format` CLI argument selects which loader to use at runtime:
+
+```python
+def load_inventory(inventory_path: str, format_type: str) -> list[dict]:
+    """Load inventory based on file format."""
+    if format_type == "csv":
+        return load_inventory_csv(inventory_path)
+    elif format_type == "json":
+        return load_inventory_json(inventory_path)
+    elif format_type == "xml":
+        return load_inventory_xml(inventory_path)
+```
 
 ---
 
