@@ -9,8 +9,8 @@ Topics: 📄 JSON · 🌐 XML · 🔍 Parsing · 🔧 Adapting tools
 |:---:|:---|
 | 1 | 📄 Read and understand JSON exports produced by modern IPAM and CMDB tools |
 | 2 | 🌐 Navigate XML exports from legacy network management tools and reports |
-| 3 | 🔍 Extract specific values from nested JSON and XML structures with Python |
-| 4 | 🔄 Adapt `config_renderer.py` to accept JSON or XML as inventory input |
+| 3 | 🔍 Identify the few fields required to render branch configurations |
+| 4 | ▶️ Run `config_renderer.py` with JSON or XML inventory files with minimal CLI options |
 | 5 | ⚖️ Choose the right format for the job based on the data source |
 
 ---
@@ -47,17 +47,7 @@ A branch site entry that was a CSV row now looks like this:
 }
 ```
 
-Parsing it in Python:
-
-```python
-import json
-
-with open("inventory.json", encoding="utf-8") as f:
-    devices = json.load(f)
-
-for device in devices:
-    print(device["BRANCH_HOSTNAME"])
-```
+For this session, the key point is practical: if the file contains the same fields as CSV (`BRANCH_HOSTNAME`, `BRANCH_IP`, `BRANCH_SUBNET`, `WAN_IP`), the renderer can use it directly.
 
 ---
 
@@ -76,57 +66,175 @@ The same branch site in XML:
 </device>
 ```
 
-Parsing it in Python using the built-in `xml.etree.ElementTree`:
-
-```python
-import xml.etree.ElementTree as ET
-
-tree = ET.parse("inventory.xml")
-root = tree.getroot()
-
-for device in root.findall("device"):
-    print(device.findtext("BRANCH_HOSTNAME"))
-```
+For this session, do not over-focus on Python parsing details. Focus on structure: each `<device>` block should include the same fields expected by the template.
 
 ---
 
-## 🔄 Adapting the Renderer
+## 🧩 Supporting many data formats
 
-The renderer from Session 03 expects a CSV file. Adapting it to handle JSON or XML means replacing only the `load_inventory()` step: the template rendering logic stays exactly the same.
+For this session, treat the tool as a black box with 3 simple inputs:
+
+1. Template file (`.j2`)
+2. Inventory file (`.csv`, `.json`, or `.xml`)
+3. Output folder (`./rendered`)
+
+If the inventory has the expected field names, the renderer produces one config per device.
+
+We will start by creating our inline inputs using `argparse`:
 
 ```python
-def load_inventory_json(inventory_path: str) -> list[dict]:
-    """Load device inventory from a JSON file."""
-    print("\n📂 Loading inventory from JSON file...\n")
-    with open(inventory_path, encoding="utf-8") as f:
-        return json.load(f)
-
-
-def load_inventory_xml(inventory_path: str) -> list[dict]:
-    """Load device inventory from an XML file."""
-    print("\n📂 Loading inventory from XML file...\n")
-    tree = ET.parse(inventory_path)
-    inventory = []
-    for device in tree.getroot().findall("device"):
-        device_dict = {}
-        for child in device:
-            device_dict[child.tag] = child.text
-        inventory.append(device_dict)
-    return inventory 
+    parser = argparse.ArgumentParser(
+        description="Render Cisco IOS configs from a Jinja template and an inventory (CSV, JSON, or XML)."
+    )
+    parser.add_argument(
+        "--template", type=str, required=True, help="Path to the .j2 template file"
+    )
+    parser.add_argument(
+        "--inventory", type=str, required=True, help="Path to the inventory file (CSV, JSON, or XML)"
+    )
+    parser.add_argument(
+        "--format",
+        type=str,
+        default="auto",
+        choices=["auto", "csv", "json", "xml"],
+        help="Inventory file format (default: auto-detect from extension)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="rendered",
+        help="Directory to save rendered configs (default: ./rendered)",
+    )
 ```
 
-A `--format` CLI argument selects which loader to use at runtime:
+You can see that we have the following:
+
+- `--template`: (Mandatory) This is the path to the Jinja template
+- `--inventory`: (Mandatory) Ths is the path to the inventory file
+- `--format`: (Optional. Defaults to `auto`) This is the format type. It can only be one of the following: _auto, csv, json or xml_
+- `--output-dir`: (Optional. Defaults to `rendered`)
+
+Now, if the selected option in `--format` is _auto_, use this function:
+
+```python
+def detect_inventory_format(inventory_path: str) -> str:
+    """Infer inventory format from file extension."""
+    if inventory_path.lower().endswith(".csv"):
+        return "csv"
+
+    if inventory_path.lower().endswith(".json"):
+        return "json"
+
+    if inventory_path.lower().endswith(".xml"):
+        return "xml"
+```
+
+This checks the path provided in `--inventory` and determines if it ends in any of the supported formats. If so, it returns that format name.
+
+Next, we load the template using the Jinja library using the same `load_template()` function that we used earlier.
+
+Following that, we load our inventory values using the `load_inventory()` function. Depending on the format type, we use a different function, as seen here:
 
 ```python
 def load_inventory(inventory_path: str, format_type: str) -> list[dict]:
     """Load inventory based on file format."""
     if format_type == "csv":
         return load_inventory_csv(inventory_path)
-    elif format_type == "json":
+
+    if format_type == "json":
         return load_inventory_json(inventory_path)
-    elif format_type == "xml":
+
+    if format_type == "xml":
         return load_inventory_xml(inventory_path)
 ```
+
+For the case of _csv_, we use the same `load_inventory_csv()` function as before. For _json_, we use `load_inventory_json()`:
+
+```python
+def load_inventory_json(inventory_path: str) -> list[dict]:
+    """Load device inventory from a JSON file."""
+    print("\n📂 Loading inventory from JSON file...\n")
+    with open(inventory_path, encoding="utf-8") as f:
+        inventory = json.load(f)
+        print(inventory)
+        return inventory
+```
+
+What this does is that it opens the inventory file, gets the contents and converts them into a Python dictionary using the JSON library.
+
+> But wait, **what is a Python dictionary?**: A dictionary is a simple `key: value` data structure, like a label and its value (example: `"BRANCH_HOSTNAME": "RTR-BOS-01"`).
+
+Now, for the _xml_ case, the function `load_inventory_xml()` is a bit more cumbersome:
+
+```python
+def load_inventory_xml(inventory_path: str) -> list[dict]:
+    """Load device inventory from an XML file."""
+    print("\n📂 Loading inventory from XML file...\n")
+
+    # Parse the XML file and collect each <device> as a dictionary.
+    tree = ET.parse(inventory_path)
+    root = tree.getroot()
+    inventory = []
+
+    for device_element in root.findall("device"):
+        device_data = {}
+
+        # Every child element becomes one key/value pair in the device record.
+        for field in device_element:
+            device_data[field.tag] = field.text
+
+        inventory.append(device_data)
+
+    print(inventory)
+    return inventory
+```
+
+What this function does, step by step:
+
+```text
+inventory.xml
+    |
+    v
+ET.parse(...)  -->  root
+    |
+    v
+root = <inventory>
+    |
+    +--> child: <device>  (device #1)
+    |       |
+    |       +--> children of <device>:
+    |       |      <BRANCH_HOSTNAME>RTR-BOS-01</BRANCH_HOSTNAME>
+    |       |      <BRANCH_IP>10.0.1.1</BRANCH_IP>
+    |       |      <BRANCH_SUBNET>255.255.255.0</BRANCH_SUBNET>
+    |       |      <WAN_IP>203.0.113.1</WAN_IP>
+    |       |
+    |       +--> build dictionary for this device:
+    |              {
+    |                "BRANCH_HOSTNAME": "RTR-BOS-01",
+    |                "BRANCH_IP": "10.0.1.1",
+    |                "BRANCH_SUBNET": "255.255.255.0",
+    |                "WAN_IP": "203.0.113.1"
+    |              }
+    |
+    +--> child: <device>  (device #2)
+    +--> child: <device>  (device #3)
+    +--> child: <device>  (device #4)
+    +--> child: <device>  (device #5)
+            (same process repeats)
+
+final inventory list:
+[
+  {device #1 dictionary},
+  {device #2 dictionary},
+  {device #3 dictionary},
+  {device #4 dictionary},
+  {device #5 dictionary}
+]
+```
+
+In this context, a **child** is any element directly inside another element. The diagram shows two child relationships: `<device>` is a child of `<inventory>`, and fields like `<BRANCH_IP>` are children of `<device>`.
+
+In plain words: the function converts XML device blocks into the same Python list-of-dictionaries structure used by CSV/JSON, so rendering works the same way.
 
 ---
 
@@ -145,13 +253,19 @@ Then navigate into the lesson subfolder before running the script:
 cd 04-structured-data
 ```
 
-Run the renderer passing the inventory format with the `--format` flag:
+Run with JSON inventory (format is auto-detected):
 
 ```bash
-python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.json --format json --output-dir ./rendered
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.json --output-dir ./rendered
 ```
 
-Or with the XML inventory:
+Run with XML inventory (same command pattern):
+
+```bash
+python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.xml --output-dir ./rendered
+```
+
+If needed, you can still force the format explicitly:
 
 ```bash
 python config_renderer.py --template ../02-howto-templates/branch-site-template-ios.j2 --inventory inventory.xml --format xml --output-dir ./rendered

@@ -1,5 +1,4 @@
-"""Course script metadata.
-
+"""
 Course: Code Is The New CLI - by Cisco DevNet X Nairobi Devops Community
 Author: Alfonso (Poncho) Sandoval - alfsando@cisco.com
 Session: Session 02 - Interaction
