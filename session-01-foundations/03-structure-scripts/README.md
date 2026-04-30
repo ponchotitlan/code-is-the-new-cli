@@ -1,4 +1,4 @@
-# 🔧 Session 03: From Script to Tool - Python Standards for Network Automation
+# 🔧 Session 01 | Lesson 03: From Script to Tool - Python Standards for Network Automation
 Topics: 🧩 Functions · ✍️ Type hints & docstrings · ⌨️ CLI with argparse
 
 ---

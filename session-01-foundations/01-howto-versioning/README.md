@@ -1,4 +1,4 @@
-# 🌐 Session 01: Version Control for Network Engineers
+# 🌐 Session 01 | Lesson 01: Version Control for Network Engineers
 Topics: 🗂️ Git basics · 🌿 Branching · 🤝 Collaboration workflows
 
 ---

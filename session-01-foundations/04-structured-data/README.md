@@ -1,4 +1,4 @@
-# 📦 Session 04: Structured Data for Network Engineers - JSON and XML Parsing
+# 📦 Session 01 | Lesson 04: Structured Data for Network Engineers - JSON and XML Parsing
 Topics: 📄 JSON · 🌐 XML · 🔍 Parsing · 🔧 Adapting tools
 
 ---

@@ -1,4 +1,4 @@
-# 🌐 Session 03: API Essentials with RESTCONF and Python requests
+# 🌐 Session 03 | Lesson 03: API Essentials with RESTCONF and Python requests
 Topics: 🌍 REST fundamentals · ☁️ Weather API mental model · 🔁 HTTP methods and status codes · 🛰️ RESTCONF with YANG-modeled data
 
 ---

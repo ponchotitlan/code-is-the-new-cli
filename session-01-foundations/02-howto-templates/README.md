@@ -1,4 +1,4 @@
-# 🥷 Session 02: Jinja for Device Config Templates
+# 🥷 Session 01 | Lesson 02: Jinja for Device Config Templates
 Topics: 🧩 Jinja placeholders · 🐍 Template rendering · 🛡️ Virtual Environments
 
 ---

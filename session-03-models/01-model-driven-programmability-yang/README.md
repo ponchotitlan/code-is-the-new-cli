@@ -1,4 +1,4 @@
-# 🌐 Session 03: Model-Driven Programmability with YANG
+# 🌐 Session 03 | Lesson 01: Model-Driven Programmability with YANG
 Topics: 🧩 YANG language fundamentals · 🛜 Network data models · 🌲 pyang tree exploration · 📦 IOS XR model navigation
 
 ---

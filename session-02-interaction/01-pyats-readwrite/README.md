@@ -1,4 +1,4 @@
-# 🌐 Session 02: CLI Automation with pyATS
+# 🌐 Session 02 | Lesson 01: CLI Automation with pyATS
 Topics: 🧪 Network validation · 🧭 Operational safety · 📊 Structured outputs
 
 ---

@@ -1,4 +1,4 @@
-# 🌐 Session 04 (Extra): OpenTofu Basics with IOS XR
+# 🌐 Session 02 | Lesson 04: OpenTofu Basics with IOS XR
 Topics: 🧱 OpenTofu state · ⚖️ Paradigm shift vs Ansible · 🌐 Cisco IOS XR provider
 
 ---

@@ -1,4 +1,4 @@
-# 🌐 Session 03: NETCONF Essentials with ncclient
+# 🌐 Session 03 | Lesson 02: NETCONF Essentials with ncclient
 Topics: 🛰️ NETCONF protocol flow · 🔐 SSH transport and capabilities · 🐍 Python ncclient workflows · 🧭 Yang Suite XPath to RPC mapping
 
 ---

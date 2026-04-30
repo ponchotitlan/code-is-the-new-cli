@@ -1,4 +1,4 @@
-# 🌐 Session 02: Change Validation with Snapshots and Diffs
+# 🌐 Session 02 | Lesson 02: Change Validation with Snapshots and Diffs
 Topics: 📸 Before/after state capture · 🔄 Structured comparison · 🗂️ Evidence reports
 
 ---

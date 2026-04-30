@@ -1,4 +1,4 @@
-# 🌐 Session 03: Ansible Basics with IOS XR
+# 🌐 Session 02 | Lesson 03: Ansible Basics with IOS XR
 Topics: 📦 Inventory · ▶️ Playbooks · 🔁 Idempotence
 
 ---
