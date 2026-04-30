@@ -2,4 +2,4 @@ pyats[full]
 pyyaml
 tqdm
 argparse
-ansible
+ansible>=10.0.0
