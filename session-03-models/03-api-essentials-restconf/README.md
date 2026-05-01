@@ -700,4 +700,6 @@ If we were to try to fetch it again using the script `restconf_get_loopback300.p
 
 ## 🚀 What's Next
 
-TBD
+In Session 04, we shift from **request/response API operations** to **streaming telemetry**.
+
+So far, your scripts have actively asked the device for data (this is called `polling`). Next, you'll build collectors where devices can continuously push state updates using `gNMI`.
