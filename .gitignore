@@ -14,5 +14,4 @@ session-02-interaction/04-terraform-basics/.terraform.lock.hcl
 session-02-interaction/04-terraform-basics/.terraform/
 session-02-interaction/04-terraform-basics/terraform.tfvars
 session-03-models/yangsuite/
-session-04-telemetry/
 *.env
