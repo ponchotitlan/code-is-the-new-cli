@@ -1,0 +1,5 @@
+gnmi-py
+protobuf
+python-dotenv
+influxdb-client
+grpcio
