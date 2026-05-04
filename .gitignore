@@ -12,6 +12,10 @@ session-02-interaction/04-terraform-basics/terraform.tfstate
 session-02-interaction/04-terraform-basics/terraform.tfstate.backup
 session-02-interaction/04-terraform-basics/.terraform.lock.hcl
 session-02-interaction/04-terraform-basics/.terraform/
+session-02-interaction/04-terraform-basics/terraform.tfstate
+session-02-interaction/04-terraform-basics/terraform.tfstate.backup
+session-02-interaction/04-terraform-basics/.terraform.lock.hcl
 session-02-interaction/04-terraform-basics/terraform.tfvars
 session-03-models/yangsuite/
 *.env
+
