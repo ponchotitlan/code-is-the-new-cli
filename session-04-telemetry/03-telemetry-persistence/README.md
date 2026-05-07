@@ -268,7 +268,7 @@ from(bucket: "telemetry_metrics")
 4. Set visualization type to **Table**
 5. Save dashboard
 
-![Grafana](../../images/influxdb_01.png)
+![Grafana](../../images/grafana_01_.png)
 
 ---
 
