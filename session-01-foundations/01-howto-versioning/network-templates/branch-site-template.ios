@@ -12,6 +12,8 @@ ip name-server 10.0.0.53
 !
 ip name-server 10.10.50.53
 !
+ip name-server 10.10.50.53
+!
 ! --- WAN Interface ---
 interface GigabitEthernet0/1
  description WAN_UPLINK_ISP-PRIMARY
